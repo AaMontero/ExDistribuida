@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-ordenCompra
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-ordenCompra
+  template:
+    metadata:
+      labels:
+        app: app-ordenCompra
+    spec:
+      containers:
+        - name: app-ordenCompra
+          image: anthonnyMontero/app-ordenCompra:latest
+          ports:
+            - containerPort: 9090
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-ordenCompra-service
+spec:
+  type: ClusterIP
+  selector:
+    app: app-ordenCompra
+  ports:
+    - protocol: TCP
+      port: 9090
+      targetPort: 9090

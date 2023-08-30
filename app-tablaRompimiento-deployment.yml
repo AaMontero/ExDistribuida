@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-tablaRompimiento
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-tablaRompimiento
+  template:
+    metadata:
+      labels:
+        app: app-tablaRompimiento
+    spec:
+      containers:
+        - name: app-tablaRompimiento
+          image: anthonnyMontero/app-tablaRompimiento:latest
+          ports:
+            - containerPort: 9090
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-tablaRompimiento-service
+spec:
+  type: ClusterIP
+  selector:
+    app: app-tablaRompimiento
+  ports:
+    - protocol: TCP
+      port: 9090
+      targetPort: 9090
